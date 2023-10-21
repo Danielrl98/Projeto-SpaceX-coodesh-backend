@@ -12,7 +12,7 @@ module.exports = {
         if (!req.query.search) {
 
             await connection.query(db.requestAllDataDB(limit)).then((success) => {
-                return res.send(
+                return res.json(
                     {
                         results: success,
                         totalDocs: success[0].length,
@@ -23,14 +23,14 @@ module.exports = {
                     }
                 )
             }).catch((error) => {
-                return res.send({ results: error })
+                return res.json({ results: error })
             })
 
         } else {
             let searchName = req.query.search
 
             await connection.query(db.requestDataDB(searchName, limit)).then((success) => {
-                return res.send(
+                return res.json(
                     {
                         results: success,
                         totalDocs: success[0].length,
@@ -41,7 +41,7 @@ module.exports = {
                     }
                 )
             }).catch((error) => {
-                return res.send({ results: error })
+                return res.json({ results: error })
             })
 
         }
