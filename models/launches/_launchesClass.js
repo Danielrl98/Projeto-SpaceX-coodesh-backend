@@ -7,7 +7,6 @@ class Launches {
     }
     createAndInsert() {
         return `CREATE TABLE ${this.tableName} ( 
-            id INT AUTO_INCREMENT PRIMARY KEY, 
             flight_number INT,
             name VARCHAR(255),
             date_utc VARCHAR(255),
@@ -20,7 +19,7 @@ class Launches {
             net  BOOLEAN,
             window INT,
             rocket VARCHAR(255),
-            success BOOLEAN,
+            success VARCHAR(255),
             failures VARCHAR(255),
             upcoming BOOLEAN,
             details VARCHAR(255),
@@ -29,8 +28,8 @@ class Launches {
             ships VARCHAR(255),
             payloads VARCHAR(255),
             launchpad VARCHAR(255),
-            cores VARCHAR(255),
-            links VARCHAR(255),
+            cores TEXT,
+            links TEXT,
             auto_update BOOLEAN,
             launch_library_id VARCHAR(255)
  );`
@@ -41,7 +40,7 @@ class Launches {
     }
     insertDataCron(flight_number,name,date_utc,date_unix,date_local,date_precision,static_fire_date_utc,static_fire_date_unix,tbd,net,window,rocket,success,failures,upcoming,details,fairings,crew,ships,payloads,launchpad,cores,links,auto_update,launch_library_id) {
 
-        return `INSERT INTO ${this.tableName} (id,flight_number,name,date_utc,date_unix,date_local,date_precision,static_fire_date_utc,static_fire_date_unix,tbd,net,window,rocket,success,failures,upcoming,details,fairings,crew,ships,payloads,launchpad,cores,links,auto_update,launch_library_id) VALUES(null,
+        return `INSERT INTO ${this.tableName} (flight_number,name,date_utc,date_unix,date_local,date_precision,static_fire_date_utc,static_fire_date_unix,tbd,net,window,rocket,success,failures,upcoming,details,fairings,crew,ships,payloads,launchpad,cores,links,auto_update,launch_library_id) VALUES(
             "${flight_number}",
             "${name}",
             "${date_utc}",

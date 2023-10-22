@@ -10,3 +10,5 @@
 # criando testes unitários
 
 ### testando rotas
+
+### criação de rota Launches/stats

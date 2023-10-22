@@ -6,7 +6,7 @@ const axios = require('axios')
 
 async function createConnectionTable(){
 
-    console.log('criou')
+  
      await connection.query(db.verifyExistTable())
      .then( async (success) => {
       
@@ -14,7 +14,6 @@ async function createConnectionTable(){
         if(success[0].length == 0){
             
             await connection.query(db.createAndInsert()).then((success) => {
-                    console.log('Tabela criada com sucesso')
                     insertDataDb()
             }).catch( (error) => {
                 return error
@@ -28,11 +27,13 @@ async function createConnectionTable(){
     }
 
 async function requestApiCron(req,res){
+
+        /*!!!!!!! Verificar se tabela está vazia */
         insertDataDb() 
 }
 async function insertDataDb(){
 
-    const version = 'v5'
+    const version = 'v4'
     const urlApi = `https://api.spacexdata.com/${version}/launches`
     const result = await axios.get(urlApi)
 
@@ -46,7 +47,7 @@ async function insertDataDb(){
     await connection.query(db.deleteDataTable()).then(async (success) => {
     for( c=0; c < data.length ; c++){
          /*Inserir dados novos */
-        await connection.query(db.insertDataCron(
+        connection.query(db.insertDataCron(
             data[c].flight_number,
             data[c].name,
             data[c].date_utc,
@@ -71,10 +72,8 @@ async function insertDataDb(){
             data[c].cores,
             data[c].links,
             data[c].auto_update,
-            data[c].launch_library_id
-              
+            data[c].launch_library_id 
           ))
-          
       }
     }).catch((error) => {
         console.error('erro ao deletar dados antigos da tabela: ' + error);
