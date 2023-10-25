@@ -44,6 +44,7 @@ module.exports = {
         await connection.query(db.searchDistinctRockets()).then(  (success) =>{
 
             let status = 201
+            const cores = ['#F57C00','#1268FC','#343A40','#f00','#ff0']
 
            success[0].forEach(async (element,i) => {
 
@@ -74,7 +75,8 @@ module.exports = {
                     error: errorLaunch,
                     cores: {
                         reused:  successCoresReused,
-                        flight: successLaunch + errorLaunch + successCoresReused
+                        flight: successLaunch + errorLaunch + successCoresReused,
+                        hexadecimal:cores[Math.floor(Math.random() * 5) + 1]
                     },
                     status: status
                 })

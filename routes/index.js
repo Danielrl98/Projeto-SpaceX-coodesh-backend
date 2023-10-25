@@ -13,6 +13,4 @@ router.get('/', index.Hello)
 router.get('/launches', bodyJson, launchesController.requestApiLaunches)
 router.get('/launches/stats', bodyJson, launchesStatsController.searchRocket)
 
-
-
 module.exports=router
