@@ -6,7 +6,7 @@ const db = new LaunchesController
 async function getLaunches(req,res){
     const limit = 5
 
-    if (!req.query.search) {
+    if (!req.query.search || !req.query.offset ) {
 
         await connection.query(db.requestAllDataDB()).then((success) => {
             return res.json(
@@ -25,13 +25,14 @@ async function getLaunches(req,res){
 
     } else {
         let searchName = req.query.search
+        let offset = req.query.offset 
 
-        await connection.query(db.requestDataDB(searchName, limit)).then((success) => {
+        await connection.query(db.requestDataDB(searchName, limit,offset)).then((success) => {
             return res.json(
                 {
                     results: success,
                     totalDocs: success[0].length,
-                    page: 1,
+                    page: offset,
                     totalPages: parseInt(success[0].length / 5),
                     hasNext: true,
                     hasPrev: false

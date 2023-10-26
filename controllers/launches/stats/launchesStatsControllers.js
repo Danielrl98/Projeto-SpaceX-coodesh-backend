@@ -44,7 +44,12 @@ module.exports = {
         await connection.query(db.searchDistinctRockets()).then(  (success) =>{
 
             let status = 201
-            const cores = ['#F57C00','#1268FC','#343A40','#f00','#ff0']
+            const coresHexadecimais = [];
+
+            for (let i = 0; i < 200; i++) {
+              const cor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+              coresHexadecimais.push(cor);
+            }
 
            success[0].forEach(async (element,i) => {
 
@@ -63,7 +68,7 @@ module.exports = {
 
            
             if(element.success !== "null" && arrayObject[0].reused !== null){
-
+             
                 if(resultData.length !== 0){
                     status = 200
                 }
@@ -72,11 +77,11 @@ module.exports = {
                     name: nameRock.name,
                     rocket: element.rocket,
                     success: successLaunch,
-                    error: errorLaunch,
+                    fail: errorLaunch,
                     cores: {
                         reused:  successCoresReused,
                         flight: successLaunch + errorLaunch + successCoresReused,
-                        hexadecimal:cores[Math.floor(Math.random() * 5) + 1]
+                        hexadecimal: coresHexadecimais[i]
                     },
                     status: status
                 })
@@ -105,7 +110,10 @@ module.exports = {
               
               }, []);
            
-                res.json(total)
+              if(req.query.full == 'all'){
+                return res.json(CountSuccess)
+              }
+               return res.json(total)
         },500)
 
         }).catch((error)=> {

@@ -5,8 +5,8 @@ class LaunchesController{
     requestAllDataDB(){
         return `SELECT * from launches`
     }
-    requestDataDB(name,limit){
-        return `SELECT * from ${this.tableName} WHERE name LIKE "%${name}%" LIMIT ${limit}`
+    requestDataDB(name,limit,offset){
+        return `SELECT * from ${this.tableName} WHERE name LIKE "%${name}%" LIMIT ${limit} OFFSET  ${offset}`
     }
 }
 
