@@ -85,9 +85,7 @@ module.exports = {
                     },
                     status: status
                 })
-
-            }    
-          
+            }           
         })
        
         setTimeout(async () => {
